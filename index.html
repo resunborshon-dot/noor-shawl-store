@@ -45,15 +45,28 @@ header{padding:20px 7%;display:flex;align-items:center;justify-content:space-bet
 <form id="orderForm">
 <label class="field">Full name<input name="customer_name" required maxlength="100"></label>
 <label class="field">Phone number<input name="phone" required inputmode="tel" placeholder="01XXXXXXXXX" maxlength="20"></label>
+ <label class="field">Customer type
+<select name="customer_type" id="customerType" required>
+<option value="first">First-time customer</option>
+<option value="returning">Returning customer</option>
+</select>
+</label>
 <label class="field">Email (optional)<input name="email" type="email" maxlength="150"></label>
 <label class="field">Full delivery address<textarea name="address" required rows="3" maxlength="500"></textarea></label>
 <label class="field">District / city<input name="city" required maxlength="100" placeholder="e.g. Khulna"></label>
 <label class="field">Delivery area<select name="delivery_zone" id="deliveryZone" required><option value="inside">Inside Khulna — ৳70</option><option value="outside">Outside Khulna — ৳140</option></select></label>
 <div class="notice" id="deliverySummary">Delivery charge: ৳70</div>
-<label class="field">Payment method<select name="payment_method" id="paymentMethod"><option value="COD">Cash on Delivery</option><option value="bKash">bKash (secure online checkout)</option><option value="Nagad">Nagad (manual payment)</option></select></label>
-<div class="notice" id="paymentHelp">Pay cash when your parcel arrives.</div>
-<label class="field hidden" id="trxField">Nagad transaction ID<input name="transaction_id" maxlength="80" placeholder="Enter TrxID after sending payment"></label>
-<p class="small">bKash opens the official secure payment page. Never share your PIN or OTP with NOOR.</p>
+<div class="notice" id="paymentHelp">
+First-time customers must pay the delivery charge in advance through bKash.
+</div>
+
+<div class="notice" id="paymentSummary">
+Advance delivery payment: ৳70 via bKash (DEMO ONLY).
+</div>
+
+<p class="small">
+DEMO CHECKOUT: No real payment will be collected.
+</p>
 <button class="btn" style="width:100%" type="submit" id="placeOrder">PLACE ORDER</button>
 <p id="formMessage" class="small" role="status"></p>
 </form></div></div>
@@ -103,22 +116,63 @@ document.getElementById("openCart").onclick=()=>{document.getElementById("cartMo
 document.getElementById("closeCart").onclick=()=>document.getElementById("cartModal").classList.remove("open");
 document.getElementById("cartModal").addEventListener("click",e=>{if(e.target.id==="cartModal")e.currentTarget.classList.remove("open");});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("cartModal").classList.remove("open");});
-document.getElementById("paymentMethod").addEventListener("change",e=>{const m=e.target.value,field=document.getElementById("trxField"),help=document.getElementById("paymentHelp");field.classList.toggle("hidden",m!=="Nagad");help.textContent=m==="COD"?"Pay cash when your parcel arrives.":m==="bKash"?"You will be redirected to the official bKash checkout to complete payment securely.":`Send the order total to ${PAYMENT_DETAILS.Nagad} using Nagad, then enter the transaction ID below. This payment is manually verified.`;});
-document.getElementById("deliveryZone").addEventListener("change",e=>{document.getElementById("deliverySummary").textContent="Delivery charge: ৳"+(e.target.value==="inside"?70:140);});
-document.getElementById("orderForm").addEventListener("submit",async e=>{
- e.preventDefault();if(!cart.length){alert("Your bag is empty.");return;}
- const form=e.currentTarget,button=document.getElementById("placeOrder"),message=document.getElementById("formMessage");
- const fd=new FormData(form);const payload=Object.fromEntries(fd.entries());payload.items=cart.map(x=>({product_id:x.id,quantity:x.quantity}));
- button.disabled=true;button.textContent="SUBMITTING…";message.textContent="";
- try{
-  const endpoint=payload.payment_method==="bKash"?"/.netlify/functions/start-bkash-payment":"/.netlify/functions/create-order";
-  const r=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-  const data=await r.json();if(!r.ok)throw new Error(data.error||"Could not place order.");
-  if(payload.payment_method==="bKash"&&data.redirect_url){window.location.assign(data.redirect_url);return;}
-  message.textContent=`Thank you! Your order number is ${data.order_number}. We will contact you to confirm.`;
-  cart=[];updateCart();form.reset();document.getElementById("trxField").classList.add("hidden");
- }catch(err){message.textContent=err.message;}
- finally{button.disabled=false;button.textContent="PLACE ORDER";}
+const customerType = document.getElementById("customerType");
+const deliveryZone = document.getElementById("deliveryZone");
+
+function updatePaymentSummary() {
+    const firstTime = customerType.value === "first";
+    const delivery = deliveryZone.value === "inside" ? 70 : 140;
+
+    document.getElementById("deliverySummary").textContent =
+        "Delivery charge: ৳" + delivery;
+
+    document.getElementById("paymentHelp").textContent =
+        firstTime
+        ? "First-time customer: delivery charge must be paid in advance through bKash."
+        : "Returning customer: full Cash on Delivery is available.";
+
+    document.getElementById("paymentSummary").textContent =
+        firstTime
+        ? "Advance delivery payment: ৳" + delivery + " via bKash (DEMO ONLY)."
+        : "Payment method: Cash on Delivery.";
+}
+
+customerType.addEventListener("change", updatePaymentSummary);
+deliveryZone.addEventListener("change", updatePaymentSummary);
+
+updatePaymentSummary();
+document.getElementById("orderForm").addEventListener("submit", e => {
+    e.preventDefault();
+
+    if (!cart.length) {
+        alert("Your bag is empty.");
+        return;
+    }
+
+    const form = e.currentTarget;
+    if (!form.reportValidity()) return;
+
+    const firstTime =
+        document.getElementById("customerType").value === "first";
+
+    const delivery =
+        document.getElementById("deliveryZone").value === "inside" ? 70 : 140;
+
+    const orderNumber = "NOOR-DEMO-" + Date.now();
+    const message = document.getElementById("formMessage");
+
+    if (firstTime) {
+        message.textContent =
+            "DEMO ONLY: ৳" + delivery +
+            " would be payable through bKash. No money collected. Order: " +
+            orderNumber;
+    } else {
+        message.textContent =
+            "Demo Cash on Delivery order created! Order: " + orderNumber;
+    }
+
+    cart = [];
+    updateCart();
 });
 renderProducts();updateCart();
 </script>
