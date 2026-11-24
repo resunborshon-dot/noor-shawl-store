@@ -28,19 +28,43 @@ header{padding:20px 7%;display:flex;align-items:center;justify-content:space-bet
 @keyframes cartBump{0%,100%{transform:scale(1)}45%{transform:scale(1.08)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media(max-width:600px){header{padding:16px 5%}.logo{font-size:19px}nav a{margin-left:9px;font-size:11px}.hero{min-height:410px}.section{padding:45px 5%}.product img{height:250px}}
+ .cart-nav {
+  background: #e9c99b;
+  color: #4b0718;
+  border: 1px solid #e9c99b;
+  padding: 10px 15px;
+  margin-left: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.cart-nav:hover {
+  background: #fff;
+  color: #4b0718;
+}
 </style>
 </head>
 <body>
 <header><a class="logo" href="#" aria-label="NOOR">
 <img src="noor%20logo.jpg" alt="NOOR" style="height:85px;width:auto;object-fit:contain;display:block;">
-</a><nav><a href="#home">HOME</a><a href="#shop">SHOP</a><a href="#about">ABOUT</a></nav></header>
+</a><nav>
+<a href="#home">HOME</a>
+<a href="#shop">SHOP</a>
+<a href="#about">ABOUT</a>
+<button class="cart-nav" id="openCart">
+BAG (<span id="cartCount">0</span>)
+</button>
+</nav></header>
 <section class="hero" id="home"><div><h1>Elegance in Every Thread.</h1><p>Discover timeless shawls, carefully selected to complement your everyday elegance.</p><a class="btn" href="#shop">EXPLORE COLLECTION</a></div></section>
 <section class="section" id="shop"><h2>Our Collection</h2><p class="sub">Find the perfect shawl for every occasion.</p>
 <div class="filters"><button class="active" data-filter="All">All</button><button data-filter="Korean">Korean</button><button data-filter="Winter">Winter</button><button data-filter="Premium">Premium</button></div>
 <div class="products" id="products"></div></section>
 <section class="about" id="about"><h2>Our Story</h2><p>At NOOR, we believe elegance is found in the little details. Our collection brings together beautiful textures, timeless designs and effortless sophistication. Every shawl is chosen with love.</p></section>
 <footer class="footer"><h2>NOOR</h2><p>Elegance in Every Thread.</p><p>Bangladesh · Nationwide delivery</p><p><a href="https://instagram.com/">Visit our Instagram</a></p><p>© 2026 NOOR. All rights reserved.</p><p><a href="/admin.html">Store admin</a></p></footer>
-<button class="cart-fab" id="openCart">Cart (<span id="cartCount">0</span>)</button>
+
 <div class="modal" id="cartModal"><div class="panel"><button class="close" id="closeCart" aria-label="Close">&times;</button><h2>Your bag</h2><div id="cartItems"></div><p id="cartTotal"></p><h3>Delivery details</h3>
 <form id="orderForm">
 <label class="field">Full name<input name="customer_name" required maxlength="100"></label>
