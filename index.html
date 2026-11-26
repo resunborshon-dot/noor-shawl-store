@@ -9,8 +9,8 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,serif}
 header{padding:20px 7%;display:flex;align-items:center;justify-content:space-between;background:#4b0718;position:sticky;top:0;z-index:4}
 .logo{font-size:25px;letter-spacing:5px;color:#e9c99b;text-decoration:none}nav a{color:#f8f0e5;text-decoration:none;margin-left:22px;font:13px Arial,sans-serif;transition:opacity .25s}nav a:hover{opacity:.7}
-.hero{min-height:480px;padding:8%;display:flex;align-items:center;color:white;background:linear-gradient(90deg,#281e17a8,#281e1710),url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1800&q=85') center/cover}
-.hero div{max-width:490px;animation:riseIn .9s ease both}.hero h1{font-size:clamp(42px,6vw,68px);font-weight:400;margin:0 0 18px}.hero p{line-height:1.8;margin-bottom:26px}
+.hero{min-height:480px;padding:8%;display:flex;align-items:center;color:white;position:relative;isolation:isolate;overflow:hidden;background:#34221f}.hero:before{content:"";position:absolute;inset:-7% 0;background:linear-gradient(90deg,#281e17b8,#281e1718),url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1800&q=85') center/cover;z-index:-2;transform:translate3d(0,var(--hero-parallax,0px),0) scale(1.09);will-change:transform}.hero:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.22;background:radial-gradient(ellipse at 18% 25%,#fff1d0 0,transparent 42%),repeating-linear-gradient(112deg,transparent 0 17px,#f4dfbd12 18px 19px,transparent 20px 37px);background-size:180% 180%;animation:silkDrift 18s ease-in-out infinite alternate}.hero>div{position:relative;z-index:1}
+.hero div{max-width:490px;animation:none}.hero h1{font-size:clamp(42px,6vw,68px);font-weight:400;margin:0 0 18px}.hero p{line-height:1.8;margin-bottom:26px}.hero h1,.hero p,.hero .btn{opacity:0;animation:cinematicRise .95s cubic-bezier(.2,.75,.25,1) forwards}.hero h1{animation-delay:.18s}.hero p{animation-delay:.48s}.hero .btn{animation-delay:.76s}
 .btn{border:0;background:var(--ink);color:#fff8ed;padding:13px 20px;cursor:pointer;text-decoration:none;font:12px Arial,sans-serif;letter-spacing:1px;display:inline-block;transition:transform .22s ease,background .22s ease,box-shadow .22s ease}
 .btn:hover{transform:translateY(-2px);box-shadow:0 7px 18px #4b071822}.btn:active{transform:scale(.97)}
 .hero .btn{background:#e6d8c7;color:var(--ink)}.section{padding:64px 7%;text-align:center}.section h2,.about h2{font-size:34px;font-weight:400;margin:0 0 10px}.sub{color:var(--muted);margin:0 0 30px}
@@ -23,6 +23,9 @@ header{padding:20px 7%;display:flex;align-items:center;justify-content:space-bet
 .cart-line{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);gap:12px}.small{font:12px Arial,sans-serif;color:var(--muted);line-height:1.6}.notice{padding:12px;background:#f0e8dd;margin:12px 0;font:13px Arial,sans-serif;line-height:1.5}.hidden{display:none!important}
 .added-note{font:12px Arial,sans-serif;color:#6b542f;margin:8px 0 0;text-align:center;animation:fadeIn .25s ease}
 @keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cinematicRise{from{opacity:0;transform:translateY(28px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes silkDrift{from{background-position:0% 20%}to{background-position:100% 80%}}
+.noor-flyer{position:fixed;z-index:9999;pointer-events:none;width:66px;height:82px;object-fit:cover;border-radius:4px;box-shadow:0 12px 28px #21020f44;transition:transform .72s cubic-bezier(.22,.75,.25,1),opacity .72s ease,border-radius .72s ease}
 @keyframes fadeIn{to{opacity:1}}
 @keyframes panelIn{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes cartBump{0%,100%{transform:scale(1)}45%{transform:scale(1.08)}}
@@ -73,7 +76,8 @@ header{padding:20px 7%;display:flex;align-items:center;justify-content:space-bet
 #cartModal.open .panel{animation:panelIn .38s cubic-bezier(.2,.8,.2,1) both}
 body.page-leaving{overflow:hidden}
 .noor-loader.is-transition{opacity:1;visibility:visible;transition:opacity .22s ease}
-@media(max-width:600px){.noor-loader-word{font-size:34px}.reveal-ready .reveal{transform:translateY(20px)}.logo:after,.btn:after,.cart-nav:after{animation-duration:4.8s}}
+@media(max-width:600px){.noor-loader-word{font-size:34px}.reveal-ready .reveal{transform:translateY(20px)}.logo:after,.btn:after,.cart-nav:after{animation-duration:4.8s}.hero:before{background-position:58% center}.hero:after{opacity:.15}}
+@media(prefers-reduced-motion:reduce){.hero:after{animation:none!important}.hero h1,.hero p,.hero .btn{opacity:1!important;animation:none!important;filter:none!important;transform:none!important}.noor-flyer{display:none!important}}
 @media(prefers-reduced-motion:reduce){.noor-loader-word,.noor-loader-rule:after,.logo:after,.btn:after,.cart-nav:after{animation:none!important}.reveal-ready .reveal{opacity:1!important;transform:none!important;transition:none!important}}
 
 </style>
@@ -153,6 +157,8 @@ document.getElementById("products").addEventListener("click",e=>{
  const id=button.getAttribute("data-add");
  const p=products.find(x=>x.id===id);
  if(!p)return;
+ const sourceImage=button.closest('.product')?.querySelector('img');
+ if(sourceImage)flyProductToBag(sourceImage);
  const existing=cart.find(x=>x.id===id);
  if(existing)existing.quantity+=1;else cart.push({id:p.id,quantity:1});
  updateCart();
@@ -235,6 +241,16 @@ document.getElementById("orderForm").addEventListener("submit", e => {
 renderProducts();updateCart();
 
 /* NOOR motion enhancements: visual-only; cart and checkout logic remain unchanged. */
+function flyProductToBag(source){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const target=document.getElementById('openCart');if(!source||!target)return;
+  const a=source.getBoundingClientRect(),b=target.getBoundingClientRect();
+  const flyer=document.createElement('img');flyer.className='noor-flyer';flyer.src=source.currentSrc||source.src;flyer.alt='';
+  flyer.style.left=a.left+'px';flyer.style.top=a.top+'px';flyer.style.width=Math.min(a.width,90)+'px';flyer.style.height='105px';document.body.appendChild(flyer);
+  flyer.getBoundingClientRect();
+  flyer.style.transform=`translate(${b.left+b.width/2-a.left-flyer.offsetWidth/2}px,${b.top+b.height/2-a.top-flyer.offsetHeight/2}px) scale(.12) rotate(12deg)`;flyer.style.opacity='0';flyer.style.borderRadius='50%';
+  window.setTimeout(()=>flyer.remove(),800);
+}
 (function(){
   const loader=document.getElementById("noorLoader");
   const hideLoader=()=>{if(loader)loader.classList.add("is-hidden");};
@@ -269,6 +285,13 @@ renderProducts();updateCart();
   }
   document.body.classList.add("reveal-ready");
   observeRevealItems();
+
+  /* Gentle hero parallax; throttled to one paint per animation frame. */
+  const hero=document.querySelector('.hero');let parallaxTick=false;
+  if(hero&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const moveHero=()=>{if(parallaxTick)return;parallaxTick=true;window.requestAnimationFrame(()=>{const r=hero.getBoundingClientRect();if(r.bottom>0&&r.top<window.innerHeight){hero.style.setProperty('--hero-parallax',Math.round(-r.top*.16)+'px');}parallaxTick=false;});};
+    window.addEventListener('scroll',moveHero,{passive:true});moveHero();
+  }
 
   /* Re-observe newly rendered product cards after category filtering. */
   const productGrid=document.getElementById("products");
