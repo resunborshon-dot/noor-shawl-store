@@ -156,6 +156,111 @@ header.paper-header{position:relative;top:auto;z-index:2;padding:0 0 22px;backgr
 #shop .filters button{color:#4b0718;background:#f8f2e9;border:1px solid #b99a70}
 #shop .filters button.active,#shop .filters button:hover{background:#4b0718;color:#fff8ed;border-color:#4b0718}
 
+
+/* RELEASE 1 — Persian luxury visual refinement. Visual-only; store logic untouched. */
+:root{--noor-burgundy:#4b0718;--noor-deep:#290711;--noor-ivory:#eee3d3;--noor-parchment:#e8d4b2;--noor-gold:#b18a4e;--noor-muted:#806b5b}
+.rug-stage.hero{
+  background-color:var(--noor-burgundy);
+  background-image:
+    radial-gradient(ellipse at 50% 50%,transparent 0 31%,#d8b47722 31.2% 31.7%,transparent 32% 39%,#d8b47725 39.2% 39.7%,transparent 40%),
+    radial-gradient(circle at 17px 17px,#d6b47a55 1.2px,transparent 2px),
+    radial-gradient(circle at 0 0,#d6b47a2b 1px,transparent 2px),
+    repeating-linear-gradient(45deg,transparent 0 15px,#d8b47a17 16px 18px,transparent 19px 34px),
+    repeating-linear-gradient(-45deg,transparent 0 15px,#17060d38 16px 19px,transparent 20px 34px),
+    linear-gradient(135deg,#260711 0%,#711b2c 27%,#3d0b19 52%,#761b2b 76%,#260711 100%);
+  background-size:auto,34px 34px,68px 68px,auto,auto,auto;
+}
+.rug-stage.hero:before{
+  inset:15px;
+  border:1px solid #d8b77f;
+  outline:4px double #9b7049;
+  outline-offset:5px;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 21px,#d8b77f22 22px 24px,transparent 25px 43px),
+    repeating-linear-gradient(0deg,transparent 0 21px,#d8b77f22 22px 24px,transparent 25px 43px);
+}
+.rug-stage .parchment-sheet{
+  border:1px solid #f7e8ca;
+  box-shadow:0 26px 75px #16050bcc,inset 0 0 0 1px #fff1d0,inset 0 0 0 7px #b9956a,inset 0 0 0 9px #ead9b9,inset 0 0 42px #9b744522;
+  background-image:
+    radial-gradient(ellipse at 18% 12%,#fff8df88,transparent 40%),
+    radial-gradient(ellipse at 85% 78%,#a67c4c2c,transparent 42%),
+    radial-gradient(circle at 14px 14px,#a27b4c12 .7px,transparent 1px),
+    repeating-linear-gradient(0deg,#805b350d 0 1px,transparent 1px 4px),
+    linear-gradient(115deg,#f0dfc2,#dfc49d 48%,#ead8b8);
+  background-size:auto,auto,23px 23px,auto,auto;
+}
+.rug-stage .parchment-sheet:before{
+  inset:17px;
+  border:1px solid #9b744b99;
+  box-shadow:inset 0 0 0 5px #b9956a13;
+}
+.paper-header{align-items:center}
+.paper-header .logo img{filter:drop-shadow(0 2px 2px #5b321c22)}
+.paper-header nav a{position:relative;padding:7px 0;transition:color .25s,opacity .25s}
+.paper-header nav a:after{content:"";position:absolute;left:0;right:100%;bottom:1px;height:1px;background:#a47a3d;transition:right .25s}
+.paper-header nav a:hover:after{right:0}
+.paper-kicker{font-weight:600}
+.paper-content h1{letter-spacing:-2.4px;text-shadow:0 1px #fff6e3}
+.paper-cta{box-shadow:0 5px 16px #4b071822;border:1px solid #6c2935}
+.paper-cta:hover{background:#6a1027;color:#fff8ed;box-shadow:0 9px 24px #4b071833}
+.paper-columns article{position:relative;overflow:hidden}
+.paper-columns article:before{content:"";position:absolute;inset:5px;border:1px solid #a47a3d22;pointer-events:none}
+.paper-columns article:hover{box-shadow:0 9px 20px #5b321c12}
+#shop.section{
+  position:relative;
+  overflow:hidden;
+  padding-top:76px;
+  padding-bottom:82px;
+  background-image:radial-gradient(ellipse at 50% 0%,#fffaf1 0%,transparent 58%),linear-gradient(180deg,#eee3d3 0%,#f4ecdf 100%);
+}
+#shop.section:before,#shop.section:after{content:"";display:block;width:min(240px,42vw);height:1px;margin:0 auto 22px;background:linear-gradient(90deg,transparent,#b18a4e,transparent)}
+#shop.section:after{margin:38px auto 0}
+.collection-kicker{font:10px Arial,sans-serif;letter-spacing:3px;color:#9b744b;margin:0 0 12px}
+#shop.section h2{font-size:clamp(32px,4vw,43px);letter-spacing:-.8px;margin-bottom:9px}
+.collection-ornament{color:#a47a3d;font-size:11px;letter-spacing:2px;margin:13px auto 15px}
+#shop .sub{color:#806b5b;line-height:1.7;margin-bottom:30px}
+#shop .filters{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:28px 0 32px}
+#shop .filters button{min-width:94px;padding:11px 17px;border-radius:0;background:#f8f2e9;color:#4b0718;border:1px solid #b99a70;font:11px Arial,sans-serif;letter-spacing:1px;transition:background .25s,color .25s,border-color .25s,transform .25s,box-shadow .25s}
+#shop .filters button:hover{transform:translateY(-2px);box-shadow:0 5px 14px #4b07181a}
+#shop .filters button.active{background:#4b0718;color:#fff8ed;border-color:#4b0718;box-shadow:0 4px 12px #4b071822}
+#products{gap:24px}
+#products .product{position:relative;background:#fffaf2;border:1px solid #d9c7aa;box-shadow:0 5px 18px #4b07180a;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+#products .product:hover{transform:translateY(-6px);border-color:#b18a4e;box-shadow:0 16px 32px #4b07181b}
+#products .product img{background:#e8d9c4}
+#products .info{padding:17px}
+#products .info h3{font-size:18px;line-height:1.4;color:#4b0718}
+#products .price{font-size:16px;color:#98703a;font-weight:600}
+#products .info .btn{width:100%;background:#4b0718;color:#fff5e7;border:1px solid #4b0718;transition:background .25s,border-color .25s,transform .25s}
+#products .info .btn:hover{background:#7a1c31;border-color:#a47a3d}
+#products .added-note{color:#70532f}
+.about{background:linear-gradient(135deg,#f2e8d7,#e9dcc6);border-top:1px solid #d0b78e;border-bottom:1px solid #d0b78e}
+.about-inner{position:relative}
+.about-inner:before,.about-inner:after{content:"✦";display:block;color:#a47a3d;font-size:16px;letter-spacing:8px;margin:0 auto 18px}
+.about-inner:after{margin:20px auto 0}
+.about h2{color:#4b0718;letter-spacing:-.8px}
+.footer{border-top:4px double #b18a4e;background:linear-gradient(135deg,#290711,#571024 55%,#310914);color:#eee3d3}
+.footer h2{letter-spacing:8px;font-weight:400;color:#e9c99b}
+.footer a{color:#e9c99b;text-decoration-color:#b18a4e;text-underline-offset:4px}
+.footer a:hover{color:#fff3db}
+@media(max-width:650px){
+ .rug-stage.hero:before{inset:10px;outline-offset:3px}
+ .rug-stage .parchment-sheet{box-shadow:0 14px 35px #16050b99,inset 0 0 0 1px #fff1d0,inset 0 0 0 5px #b9956a,inset 0 0 0 7px #ead9b9}
+ .paper-content h1{letter-spacing:-1.5px}
+ #shop.section{padding:54px 5% 60px}
+ #shop .filters{gap:7px;margin:22px 0 25px}
+ #shop .filters button{min-width:0;padding:10px 13px;font-size:10px}
+ #products{gap:12px}
+ #products .info{padding:10px}
+ #products .info h3{font-size:14px;min-height:2.7em}
+ #products .price{font-size:14px}
+ #products .info .btn{font-size:10px;padding:11px 6px}
+}
+@media(prefers-reduced-motion:reduce){
+ #shop .filters button,#products .product{transition:none}
+ #products .product:hover,#shop .filters button:hover{transform:none}
+}
+
 </style>
 </head>
 <body>
@@ -168,7 +273,7 @@ header.paper-header{position:relative;top:auto;z-index:2;padding:0 0 22px;backgr
 <header class="paper-header"><a class="logo" href="#home" aria-label="NOOR"><img src="noor%20logo.jpg" alt="NOOR" style="height:66px;width:auto;object-fit:contain;display:block;"></a><nav aria-label="Main navigation"><a href="#home">HOME</a><a href="#shop">COLLECTION</a><a href="#about">OUR STORY</a><button class="cart-nav" id="openCart" aria-label="Open shopping bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><span>BAG (<span id="cartCount">0</span>)</span></button></nav></header>
 <div class="paper-content"><p class="paper-kicker">A SHAWL BOUTIQUE · BANGLADESH</p><div class="ornament" aria-hidden="true">✦ ───────── ❖ ───────── ✦</div><h1>Elegance<br><em>in Every Thread.</em></h1><p class="paper-intro">A thoughtful collection of shawls, chosen to bring softness, character and effortless elegance to the everyday.</p><a class="btn paper-cta" href="#shop">EXPLORE THE COLLECTION <span aria-hidden="true">↗</span></a><div class="paper-rule"><span>❧</span></div>
 <div class="paper-columns"><article><span class="paper-number">01</span><h2>The Collection</h2><p>Explore Korean, winter and premium shawls, with styles for different moods and moments.</p><a href="#shop">DISCOVER THE EDIT ↗</a></article><article><span class="paper-number">02</span><h2>Our Philosophy</h2><p>At NOOR, we believe elegance lives in the little details. Every shawl is selected with love.</p><a href="#about">GET TO KNOW NOOR ↗</a></article><article><span class="paper-number">03</span><h2>Made to Reach You</h2><p>Find your favourite piece from anywhere in Bangladesh with nationwide delivery.</p><a href="#footer">DELIVERY & CONTACT ↗</a></article></div><div class="paper-signoff"><span>NOOR</span><small>TIMELESS STYLE · EVERYDAY ELEGANCE</small></div></div></div></section>
-<section class="section" id="shop"><h2>Our Collection</h2><p class="sub">Find the perfect shawl for every occasion.</p>
+<section class="section" id="shop"><p class="collection-kicker">THE NOOR EDITION</p><h2>Our Collection</h2><div class="collection-ornament" aria-hidden="true">✦ ───────── ❖ ───────── ✦</div><p class="sub">Find the perfect shawl for every occasion.</p>
 <div class="filters"><button class="active" data-filter="All">All</button><button data-filter="Korean">Korean</button><button data-filter="Winter">Winter</button><button data-filter="Premium">Premium</button></div>
 <div class="products" id="products"></div></section>
 <section class="about" id="about"><div class="about-inner"><p class="paper-kicker">THE HEART OF NOOR</p><h2>Beauty in the details.<br><em>Elegance in every thread.</em></h2><p>At NOOR, we believe elegance is found in the little details. Our collection brings together beautiful textures, timeless designs and effortless sophistication. Every shawl is chosen with love, so you can find a piece that feels unmistakably yours.</p><a class="btn" href="#shop">FIND YOUR FAVOURITE</a></div></section>
